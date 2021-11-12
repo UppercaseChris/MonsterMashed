@@ -1,106 +1,113 @@
-$(document).ready(function()
-    {
-        var headclix = 0, eyeclix = 0, noseclix = 0, mouthclix = 0;
-        $("#head").click(function()
-            {
-                if(headclix < 9)
-                    {
-                        $(this).animate({left:"-=367px"}, 500);
-                        headclix += 1;
-                    }
-                    else
-                    {
-                        $(this).animate({left:"0px"}, 500);
-                        headclix = 0;
-                    }
-            });
-            $("#eyes").click(function()
-            {
-                if(eyeclix < 9)
-                    {
-                        $(this).animate({left:"-=367px"}, 500);
-                        eyeclix += 1;
-                    }
-                    else
-                    {
-                        $(this).animate({left:"0px"}, 500);
-                        eyeclix = 0;
-                    }
-            });
-        $("#nose").click(function()
-            {
-                if(noseclix < 9)
-                    {
-                        $(this).animate({left:"-=367px"}, 500);
-                        noseclix += 1;
-                    }
-                    else
-                    {
-                        $(this).animate({left:"0px"}, 500);
-                        noseclix = 0;
-                    }
-            });
-        $("#mouth").click(function()
-            {
-                if(mouthclix < 9)
-                    {
-                        $(this).animate({left:"-=367px"}, 500);
-                        mouthclix += 1;
-                    }
-                    else
-                    {
-                        $(this).animate({left:"0px"}, 500);
-                        mouthclix = 0;
-                    }
-                });
-                lightning_one();
-                lightning_two();
-                lightning_three();
-    });
-    var lightningOne = new Audio("lightning1.wav");
-    var lightningTwo = new Audio("lightning2.wav");
-    var lightningThree = new Audio("lightning3.wav");
+ //-----------Establshing Constants----------------------------------- 
+    const audio = new Audio('lightning1.wav');
+          
+//------------Let's get the party STARTED!!!!------------------------    
+          $(function() {
+              let headclix = 0,
+                  eyeclix = 0,
+                  noseclix = 0,
+                  mouthclix = 0;
+        
+              audio.playbackRate = 2.5;
+              audio.play();
+              //----Call functions---//
+              lightning_one();
+              lightning_two();
+              lightning_three();
+            //-----Determining Right Click------------//
+              $('#head').on('contextmenu', function(e) {
+                  e.preventDefault();
+                  if (headclix > 0) {
+                      $(this).animate({ left: "+=367px" }, 500);
+                      headclix -= 1;
+                  }
+                  return false;
+              });
 
-function lightning_one()
-    {
-        $("#container #lightning1").fadeIn(250).fadeOut(250);
-        setTimeout("lightning_one()", 4000);
-        lightningOne.play();
-    };
-function lightning_two()
-    {
-        $("#container #lightning2").fadeIn("fast").fadeOut("fast");
-        setTimeout("lightning_two()", 5000);
-        lightningTwo.play();
-    };
-function lightning_three()
-    {
-        $("#container #lightning3").fadeIn("fast").fadeOut("fast");
-        setTimeout("lightning_three()", 7000);
-        lightningThree.play();
-    };
+              $('#eyes').on('contextmenu', function(e) {
+                  e.preventDefault();
+                  if (eyeclix > 0) {
+                      $(this).animate({ left: "+=367px" }, 500);
+                      eyeclix -= 1;
+                  }
+                  return false;
+              });
 
+              $('#nose').on('contextmenu', function(e) {
+                  e.preventDefault();
+                  if (noseclix > 0) {
+                      $(this).animate({ left: "+=367px" }, 500);
+                      noseclix -= 1
+                  }
+                  return false;
+              });
 
+              $('#mouth').on('contextmenu', function(e) {
+                  e.preventDefault();
+                  if (mouthclix > 0) {
+                      $(this).animate({ left: "+=367px" }, 500);
+                      mouthclix -= 1
+                  }
+                 else if (mouthclix === 9) {
+                    $(this).animate({ left: "0px" }, 500);
+                    mouthclix = 0;
+                }
+              });
 
+              //------Standard left Mouse Click ---------//
+              $("#head").on('click', function() {
+                  if (headclix < 9) {
+                      $(this).animate({ left: "-=367px" }, 500);
+                      headclix += 1
+                  } else if (headclix === 9) {
+                      $(this).animate({ left: "0px" }, 500);
+                      headclix = 0;
+                  }
+              });
 
+              $("#eyes").on('click', function() {
+                  if (eyeclix < 9) {
+                      $(this).animate({ left: "-=367px" }, 500);
+                      eyeclix += 1;
+                  } else {
+                      $(this).animate({ left: "0px" }, 500);
+                      eyeclix = 0;
+                  }
+              });
 
+              $("#nose").on("click", function() {
+                  $(this).animate({ left: "-=367px" }, 500);
+                  if (noseclix < 9) {
+                      noseclix += 1;
+                  } else {
+                      $(this).animate({ left: "0px" }, 500);
+                      noseclix = 0;
+                  }
+              });
 
+              $("#mouth").on("click", function() {
+                  if (mouthclix < 9) {
+                      $(this).animate({ left: "-=367px" }, 500);
+                      mouthclix += 1;
+                  } else {
+                      $(this).animate({ left: "0px" }, 500);
+                      mouthclix = 0;
+                  }
+              });
+          });
+//-------------------Lightning Functions-------------------------------
+          function lightning_one() {
+              $("#lightning1").fadeIn(250).fadeOut(250);
+              setTimeout("lightning_one()", 4000);    
+          }
 
+          function lightning_two() {
+              $("#lightning2").fadeIn(250).fadeOut(250);
+              setTimeout("lightning_two()", 5000);
+          }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//$(function() {
-//   
-//});
+          function lightning_three() {
+              $("#lightning3").fadeIn(250).fadeOut(250);
+              setTimeout("lightning_three()", 7000);
+              audio.play(); 
+          }
